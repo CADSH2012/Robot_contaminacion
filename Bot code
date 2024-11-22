@@ -1,0 +1,70 @@
+import discord, random
+
+from discord.ext import commands
+
+# La variable intents almacena los privilegios del bot
+intents = discord.Intents.default()
+# Activar el privilegio de lectura de mensajes
+intents.message_content = True
+# Crear un bot en la variable cliente y transferirle los privilegios
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f'Hemos iniciado sesión como {bot.user}')
+
+@bot.event
+async def on_ready():
+    print(f'Logged in as {bot.user} (ID: {bot.user.id})')
+    print('------')
+
+################################################################
+
+@bot.command()
+async def Hola(ctx):
+    await ctx.send(f'Hola, {bot.user}!')
+
+
+@bot.group()
+async def Contenedores(ctx):
+    
+    if ctx.invoked_subcommand is None:
+        await ctx.send(f'No te puedo ayudar con ese tipo de material') 
+    
+@Contenedores.command(name='Platos_desechables')
+async def _bot(ctx):
+    
+    await ctx.send('Si el plato es de plástico, va en el contenedor amarillo, si es de cartón va en el contenedor azul, si el plato es de materiales biodegradables o compostables, van en el contenedor verde, o aveces marrón, si tu plato está muy contaminado con restos de alimentos(sin importar en tipo de plato), va en el contenedor negro o de materiales no reciclables, o si tu plato contiene restos químicos peligrosos o sangre, ten cuidado de tocarlos demasiado y depositalos en el contenedor rojo ')
+
+@Contenedores.command(name='Cubiertos_desechables')
+async def _bot(ctx):
+    
+    await ctx.send('Mayormente, los cubiertos desechables están hechos de plastico, por lo tanto van en el contenedor amarillo, pero si están hechos de madera o bambú, van en el contenedor verde o en ocasiones marrón, esto es solo si no tienen una capa de recubrimiento de barniz o pintura')
+    
+@Contenedores.command(name='Cubrebocas')
+async def _bot(ctx):
+    
+    await ctx.send('Los cubrebocas o tapabocas, siempre van en los contenedores negros de basura inorgánica o si es posible en el rojo de desechos peligrosos, porque los cubrebocas pueden contener restos de saliva o sangre')
+
+
+@bot.command()
+async def Ejemplos_container(ctx):
+    with open('Mod_2_leccion_2\imagenes\basureros.jpeg') as f:
+        # ¡Vamos a almacenar el archivo de la biblioteca Discord convertido en esta variable!
+        picture = discord.File(f)
+    # A continuación, podemos enviar este archivo como parámetro.
+    await ctx.send(file=picture)
+
+@bot.command()
+async def Adios(ctx):
+    await ctx.send(f'Hasta luego, {bot.user}!')
+
+@bot.command()
+async def lista(ctx):
+    await ctx.send(f'Hola, Adios, para ejemplos de contenedores : Ejemplos_container, para clasificacion de objetos: Contenedores Material (Platos desechables, Cubiertos desechables y cubrebocas) {bot.user}!')
+
+
+
+
+
+bot.run("")
